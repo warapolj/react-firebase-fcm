@@ -1,24 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { messaging } from "./firebase";
+import { getToken } from "./firebase";
+import { notificationListener } from "./notifications";
 
 function App() {
-  messaging
-    .requestPermission()
-    .then(() => {
-      messaging
-        .getToken()
-        .then((token) => {
-          console.log("token: ", token);
-        })
-        .catch((err) => {
-          console.log("get token failed: ", err);
-        });
-    })
-    .catch((err) => {
-      console.log("request permission failed: ", err);
-    });
+  useEffect(() => {
+    const token = getToken()
+    if (token) {
+      notificationListener();
+    }
+  }, []);
 
   return (
     <div className="App">

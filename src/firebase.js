@@ -15,8 +15,18 @@ firebase.initializeApp(config);
 
 const messaging = firebase.messaging();
 
-messaging.usePublicVapidKey(
-  "BNF7mAL5XtAiwg8iaR3OFxUIEOpehXtHKojhaJb7uPfY_5xcLYe6qB8UQPktX1k_JN-W-y2vK8b8xzAzEg25sK8"
-);
+export const getToken = async () => {
+  try {
+    await messaging.requestPermission();
+    const token = await messaging.getToken();
+    console.log("token: ", token);
+    return token;
+  } catch (error) {
+    console.log("Error: ", error);
+    return null;
+  }
+};
+
+messaging.usePublicVapidKey(process.env.REACT_APP_PUBLIC_VALID_KEY);
 
 export { messaging };
