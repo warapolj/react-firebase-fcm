@@ -1,32 +1,13 @@
-import React, { useEffect } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
-import { getToken } from "./firebase";
-import { notificationListener } from "./notifications";
+import Notification from "./notifications";
 
 function App() {
-  useEffect(() => {
-    const token = getToken()
-    if (token) {
-      notificationListener();
-    }
-  }, []);
-
   return (
     <div className="App">
+      <Notification />
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>Test Notification</p>
       </header>
     </div>
   );
